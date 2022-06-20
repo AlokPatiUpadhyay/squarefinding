@@ -1,0 +1,2 @@
+# squarefinding
+finding squares algorithm
