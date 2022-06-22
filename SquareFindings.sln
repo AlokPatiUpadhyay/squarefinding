@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SquareFindings", "SquareFindings\SquareFindings.csproj", "{32BA9D9C-FA20-47C5-B102-B50CE59FEAA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SquareFindings.UnitTestCoverage", "SquareFindings.UnitTestCoverage\SquareFindings.UnitTestCoverage.csproj", "{6CF8D846-9DC7-4EAF-826F-36011925B3BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32BA9D9C-FA20-47C5-B102-B50CE59FEAA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32BA9D9C-FA20-47C5-B102-B50CE59FEAA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32BA9D9C-FA20-47C5-B102-B50CE59FEAA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32BA9D9C-FA20-47C5-B102-B50CE59FEAA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CF8D846-9DC7-4EAF-826F-36011925B3BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CF8D846-9DC7-4EAF-826F-36011925B3BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CF8D846-9DC7-4EAF-826F-36011925B3BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CF8D846-9DC7-4EAF-826F-36011925B3BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0DE1E998-691C-4010-8A54-D3BA218A4EB2}
+	EndGlobalSection
+EndGlobal
