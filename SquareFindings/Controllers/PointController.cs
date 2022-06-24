@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using SquareFindings.Entities;
 using SquareFindings.Models;
+using SquareFindings.Models.example;
 using SquareFindings.Services;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace SquareFindings.Controllers
 {
@@ -25,7 +27,7 @@ namespace SquareFindings.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<PointModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult Get()
         {
@@ -41,13 +43,14 @@ namespace SquareFindings.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [SwaggerRequestExample(typeof(PointModel), typeof(PointModelExample))]
         public IActionResult Post(PointModel point)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            
+
             var entity = _mapper.Map<PointEntity>(point);
             _pointService.Post(entity);
 
@@ -72,7 +75,7 @@ namespace SquareFindings.Controllers
         }
 
         [HttpDelete]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PointModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult Delete(PointModel point)

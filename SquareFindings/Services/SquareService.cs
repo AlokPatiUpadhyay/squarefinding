@@ -44,7 +44,7 @@ namespace SquareFindings.Services
 
         private bool IsPointsAlreadyExists(HashSet<string> source, List<Point> points)
         {
-            var squarePoints = points.OrderBy(x => x.Y).ThenBy(x => x.Y);
+            var squarePoints = points.OrderBy(x => x.X).ThenBy(x => x.Y);
             var key = new StringBuilder();
             foreach (var item in squarePoints)
             {

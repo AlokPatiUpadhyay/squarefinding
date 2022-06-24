@@ -1,7 +1,10 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SquareFindings.Infrastructure;
+using SquareFindings.Models.example;
 using SquareFindings.Services;
+using Swashbuckle.AspNetCore.Filters;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace SquareFindings
 {
@@ -30,7 +33,11 @@ namespace SquareFindings
                     Version = "v1",
                     Description = "Square find",
                 });
+
+                options.ExampleFilters();
             });
+            services.Configure<SwaggerOptions>(c => c.SerializeAsV2 = true);
+            services.AddSwaggerExamplesFromAssemblyOf<PointModelExample>();
 
             services.AddTransient<IPointService, PointService>();
             services.AddTransient<ISquareService, SquareService>();
