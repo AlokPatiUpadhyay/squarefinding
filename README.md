@@ -50,6 +50,7 @@ Total Complexity = O(n) + O( n-1 + .... + 1)
 formula => n/2[2a+ (n-1)*d]
 
 where
+
 	n= n
 
 	a= n
@@ -69,5 +70,7 @@ final
 ## Execution Time
 
 500 points - find square took arround 140 milisecond
+
 4000 points - find square took arround 1499 milisecond
+
 5000 points - find square took arround 1562 milisecond
