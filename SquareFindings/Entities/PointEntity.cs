@@ -2,14 +2,14 @@
 {
     public class PointEntity
     {
-        public PointEntity(float x, float y)
+        public PointEntity(int x, int y)
         {
             X = x;
             Y = y;
         }
         public int Id { get; set; }
-        public float X { get; set; }
-        public float Y { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
 
     }
 }

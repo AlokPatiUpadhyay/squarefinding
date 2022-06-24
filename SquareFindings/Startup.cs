@@ -1,10 +1,5 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using SquareFindings.Infrastructure;
 using SquareFindings.Services;
 
@@ -39,7 +34,7 @@ namespace SquareFindings
 
             services.AddTransient<IPointService, PointService>();
             services.AddTransient<ISquareService, SquareService>();
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

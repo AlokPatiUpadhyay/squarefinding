@@ -16,26 +16,12 @@ namespace SquareFindings.UnitTest
             _mapper = new Mock<IMapper>();
 
             _controller = new SquareController(
-                _logger.Object, 
-                _pointService.Object, 
+                _logger.Object,
+                _pointService.Object,
                 _squareService.Object,
                 _mapper.Object);
         }
 
-        [Fact]
-        public void Import_Sucess()
-        {
-            // Arrange
-            var points = new List<PointModel>
-            {
-                new PointModel{ X=1, Y=2 },
-                new PointModel{ X=1, Y=3 }
-            }; 
 
-            _pointService.Setup(x => x.Import(It.IsAny<ICollection<PointEntity>>()));
-
-            var result = _controller.Post(points);
-            Assert.IsType<OkObjectResult>(result);
-        }
     }
 }

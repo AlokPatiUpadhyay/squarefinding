@@ -41,7 +41,7 @@ Time complexity =>
 
 2. Finding points
 
-	(n-1) + (n-2) + (n-3) + (n-4) .... +0
+	(n-1) + (n-2) + (n-3) + (n-4) + .... + 1
 
 so
 
@@ -66,3 +66,8 @@ final
 
 	=> n*(n+1)/2
 
+## Execution Time
+
+500 points - find square took arround 140 milisecond
+4000 points - find square took arround 1499 milisecond
+5000 points - find square took arround 1562 milisecond

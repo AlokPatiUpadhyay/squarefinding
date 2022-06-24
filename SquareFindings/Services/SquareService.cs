@@ -1,6 +1,5 @@
 ﻿using SquareFindings.Entities;
-using System.Collections.Generic;
-using System.Linq;
+using System.Text;
 
 namespace SquareFindings.Services
 {
@@ -8,37 +7,34 @@ namespace SquareFindings.Services
     {
         public IEnumerable<IEnumerable<Point>> FindSquares(Point[] points)
         {
+            HashSet<string> squarePoints = new HashSet<string>();
             List<List<Point>> result = new List<List<Point>>();
 
-            HashSet<string> set = new HashSet<string>();
+            HashSet<string> inputPointList = new HashSet<string>();
             foreach (var point in points)
-                set.Add(point.ToString());
+                inputPointList.Add(point.ToString());
 
-            for (int i = 0; i < points.Length-1; i++)
+            for (int i = 0; i < points.Length - 1; i++)
             {
-                for (int j = i+1; j < points.Length; j++)
+                for (int j = i + 1; j < points.Length; j++)
                 {
                     //For each Point i, Point j, check if b&d exist in set.
-                    Point[] DiagVertex = GetRestPints(points[i], points[j]);
+                    Point[]? DiagVertex = GetRestPoints(points[i], points[j]);
+                    if (DiagVertex == null)
+                        continue;
 
-                    var squarePoints = new List<Point> {
+                    if (inputPointList.Contains(DiagVertex[0].ToString()) && inputPointList.Contains(DiagVertex[1].ToString()))
+                    {
+                        var estimatedSquarePoints = new List<Point> {
                                     points[i],
                                     DiagVertex[0],
                                     points[j],
                                     DiagVertex[1]
                                 };
-                    
-                    if (IsPointsAlreadyExists(result, squarePoints))
-                        continue;
+                        if (IsPointsAlreadyExists(squarePoints, estimatedSquarePoints))
+                            continue;
 
-                    if (set.Contains(DiagVertex[0].ToString()) && set.Contains(DiagVertex[1].ToString()))
-                    {
-                        result.Add(new List<Point> {
-                                    points[i],
-                                    DiagVertex[0],
-                                    points[j],
-                                    DiagVertex[1]
-                                });
+                        result.Add(estimatedSquarePoints);
                     }
                 }
             }
@@ -46,37 +42,80 @@ namespace SquareFindings.Services
 
         }
 
-        private bool IsPointsAlreadyExists(List<List<Point>> source, List<Point> points)
+        private bool IsPointsAlreadyExists(HashSet<string> source, List<Point> points)
         {
-            return source.Any(x =>  x.Any(y => y.X == points[0].X && y.Y == points[0].Y)
-                                    && x.Any(y => y.X == points[1].X && y.Y == points[1].Y)
-                                    && x.Any(y => y.X == points[2].X && y.Y == points[2].Y)
-                                    && x.Any(y => y.X == points[3].X && y.Y == points[3].Y)
-                                        );
+            var squarePoints = points.OrderBy(x => x.Y).ThenBy(x => x.Y);
+            var key = new StringBuilder();
+            foreach (var item in squarePoints)
+            {
+                key.Append($"({item.X},{item.Y}), ");
+            }
+            var keyString = key.ToString();
+            if (!source.Contains(keyString))
+            {
+                source.Add(keyString);
+                return false;
+            }
+            return true;
         }
 
-        private Point[] GetRestPints(Point a, Point c)
+        /// <summary>
+        /// Method to find other points b & d
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        private Point[]? GetRestPoints(Point a, Point c)
         {
-            Point[] res = new Point[2];
+            Point[]? res = null;
 
-            float midX = (a.X + c.X) / 2;
-            float midY = (a.Y + c.Y) / 2;
-            
+            // find mid point of point a and c
+            float midX = (float)(a.X + c.X) / 2;
+            float midY = (float)(a.Y + c.Y) / 2;
+
+            // calculate point b
             float Ax = a.X - midX;
             float Ay = a.Y - midY;
             float bX = midX - Ay;
             float bY = midY + Ax;
-            Point b = new Point(bX, bY);
 
+            // calculate point d
             float cX = (c.X - midX);
             float cY = (c.Y - midY);
             float dX = midX - cY;
             float dY = midY + cX;
-            Point d = new Point(dX, dY);
+
+            if (!IsInt(bX) || !IsInt(bY) || !IsInt(dX) || !IsInt(dY))
+            {
+                // if points X or Y axis are float then skip calculated points
+                return res;
+            }
+
+            res = new Point[2];
+            Point b = new Point((int)bX, (int)bY);
+            Point d = new Point((int)dX, (int)dY);
 
             res[0] = b;
             res[1] = d;
+
             return res;
+        }
+
+        private bool IsInt(float input)
+        {
+            // Convert float value
+            // of input to integer
+            int integerValue = (int)input;
+
+            float temp2 = input - integerValue;
+
+            // If input is not equivalent
+            // to any integer
+            if (temp2 > 0)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

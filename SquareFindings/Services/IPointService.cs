@@ -1,5 +1,4 @@
 ﻿using SquareFindings.Entities;
-using System.Collections.Generic;
 
 namespace SquareFindings.Services
 {
@@ -11,6 +10,6 @@ namespace SquareFindings.Services
 
         void Import(ICollection<PointEntity> points);
 
-        void Delete(PointEntity point);
+        bool Delete(PointEntity point);
     }
 }

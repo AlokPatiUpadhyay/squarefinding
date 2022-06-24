@@ -1,7 +1,5 @@
 ﻿using SquareFindings.Entities;
 using SquareFindings.Infrastructure;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SquareFindings.Services
 {
@@ -9,9 +7,9 @@ namespace SquareFindings.Services
     {
         private readonly ApiContext apiContext;
 
-        public PointService(ApiContext apiContext)
+        public PointService(ApiContext _apiContext)
         {
-            this.apiContext = apiContext;
+            apiContext = _apiContext;
         }
 
         public ICollection<PointEntity> Get()
@@ -21,8 +19,8 @@ namespace SquareFindings.Services
 
         public void Post(PointEntity point)
         {
-            if (apiContext.Points.Any(x => 
-                                x.X == point.X 
+            if (apiContext.Points.Any(x =>
+                                x.X == point.X
                                 && x.Y == point.Y))
                 return;
 
@@ -32,20 +30,27 @@ namespace SquareFindings.Services
 
         public void Import(ICollection<PointEntity> points)
         {
-            //remove duplicate points
             //code to remove duplicate points
 
+            //import points
             apiContext.Points.AddRange(points);
             apiContext.SaveChanges();
         }
 
-        public void Delete(PointEntity point)
+        public bool Delete(PointEntity point)
         {
             var item = apiContext.Points
-                            .FirstOrDefault(x => 
-                                x.X == point.X 
+                            .FirstOrDefault(x =>
+                                x.X == point.X
                                 && x.Y == point.Y);
-            apiContext.Points.Remove(item);
+            if (item == null)
+                return false;
+            else
+            {
+                apiContext.Points.Remove(item);
+                apiContext.SaveChanges();
+                return true;
+            }
         }
     }
 }

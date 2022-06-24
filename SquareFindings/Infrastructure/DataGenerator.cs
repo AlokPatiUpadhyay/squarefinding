@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using SquareFindings.Entities;
-using System;
-using System.Linq;
 
 namespace SquareFindings.Infrastructure
 {
@@ -15,7 +12,7 @@ namespace SquareFindings.Infrastructure
             {
                 if (context.Points.Any())
                 {
-                    return;  
+                    return;
                 }
 
                 context.Points.AddRange(

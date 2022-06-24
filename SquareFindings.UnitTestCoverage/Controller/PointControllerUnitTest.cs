@@ -14,7 +14,7 @@ namespace SquareFindings.UnitTestCoverage
             _mapper = new Mock<IMapper>();
 
             _controller = new PointController(
-                        _logger.Object, 
+                        _logger.Object,
                         _pointService.Object,
                         _mapper.Object);
         }
@@ -35,11 +35,27 @@ namespace SquareFindings.UnitTestCoverage
         public void Get_Success()
         {
             // Arrange
-            var points =new List<PointEntity> { new PointEntity(1,2) };
+            var points = new List<PointEntity> { new PointEntity(1, 2) };
 
             _pointService.Setup(x => x.Get()).Returns(points);
 
             var result = _controller.Get();
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public void Import_Sucess()
+        {
+            // Arrange
+            var points = new List<PointModel>
+            {
+                new PointModel{ X=1, Y=2 },
+                new PointModel{ X=1, Y=3 }
+            };
+
+            _pointService.Setup(x => x.Import(It.IsAny<ICollection<PointEntity>>()));
+
+            var result = _controller.Post(points);
             Assert.IsType<OkObjectResult>(result);
         }
 

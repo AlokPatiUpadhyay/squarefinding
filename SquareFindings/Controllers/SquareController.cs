@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using SquareFindings.Entities;
-using SquareFindings.Models;
 using SquareFindings.Services;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SquareFindings.Controllers
 {
@@ -29,7 +25,9 @@ namespace SquareFindings.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("find-squares")]
+        [HttpGet()]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult Get()
         {
             _logger.LogInformation($"finding squares from given list of points");
@@ -40,13 +38,6 @@ namespace SquareFindings.Controllers
             return Ok(squarePoints);
         }
 
-        [HttpPost("import")]
-        public IActionResult Post(ICollection<PointModel> points)
-        {
-            var entities = _mapper.Map<ICollection<PointEntity>>(points);
-            _pointService.Import(entities);
 
-            return Ok(points);
-        }
     }
 }
