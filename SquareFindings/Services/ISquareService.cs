@@ -1,5 +1,4 @@
 ﻿using SquareFindings.Entities;
-using System.Collections.Generic;
 
 namespace SquareFindings.Services
 {
